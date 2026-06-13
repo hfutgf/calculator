@@ -1,0 +1,313 @@
+.app {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 40px);
+}
+
+/* Layout shell: calculator + history side by side on desktop. */
+.shell {
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) 320px;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  align-items: start;
+}
+
+/* ---------- Calculator card ---------- */
+.calculator {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.calculator__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calculator__brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.calculator__history-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.calculator__history-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.calculator__badge {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 6px;
+}
+
+/* ---------- Display ---------- */
+.display {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  margin-bottom: 16px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.display__preview {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  min-height: 1.4em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.display__expr {
+  color: var(--text);
+  font-size: clamp(1.9rem, 7vw, 2.8rem);
+  font-weight: 600;
+  text-align: right;
+  line-height: 1.1;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  scrollbar-width: none;
+}
+
+.display__expr::-webkit-scrollbar {
+  display: none;
+}
+
+.display__expr--error {
+  color: var(--danger);
+}
+
+/* ---------- Keypad ---------- */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.key {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 500;
+  border-radius: 16px;
+  padding: 0;
+  height: 62px;
+  transition: transform 0.06s ease, background 0.15s ease, filter 0.15s ease;
+  user-select: none;
+}
+
+.key:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.key--accent {
+  color: var(--accent);
+  background: rgba(108, 140, 255, 0.12);
+  font-weight: 700;
+}
+
+.key--accent:hover {
+  background: rgba(108, 140, 255, 0.22);
+}
+
+.key--function {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+.key--equals {
+  background: var(--equals);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+}
+
+.key--equals:hover {
+  filter: brightness(1.08);
+}
+
+.key--wide {
+  grid-column: span 4;
+  font-size: 1rem;
+}
+
+/* ---------- History ---------- */
+.history-pane {
+  position: sticky;
+  top: 20px;
+}
+
+.history {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.history__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.history__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.history__clear {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.history__clear:hover {
+  text-decoration: underline;
+}
+
+.history__empty {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: auto 0;
+  line-height: 1.6;
+}
+
+.history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history__item {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.history__use {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text);
+  text-align: right;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history__use:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.history__expr {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.history__result {
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.history__time {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.history__remove {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  width: 34px;
+  flex-shrink: 0;
+}
+
+.history__remove:hover {
+  color: var(--danger);
+  background: rgba(255, 107, 129, 0.1);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .shell {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  /* On mobile the history is collapsed and only shown when toggled. */
+  .history-pane {
+    position: static;
+    display: none;
+  }
+
+  .shell--history-open .history-pane {
+    display: block;
+  }
+
+  .history {
+    max-height: none;
+  }
+}
